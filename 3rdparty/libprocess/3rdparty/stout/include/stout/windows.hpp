@@ -26,6 +26,7 @@
 // re-definitions. This is a known pattern in the windows community.
 #include <Winsock2.h>
 #include <Windows.h>
+#include <process.h>
 
 
 // Definitions and constants used for Windows compat.
@@ -271,13 +272,17 @@ decltype(_getcwd(path, maxlen))
   return _getcwd(path, maxlen);
 }
 
+inline auto getpid() ->
+decltype(_getpid())
+{
+  return _getpid();
+}
 
 inline auto mkdir(const char* path, mode_t mode) ->
 decltype(_mkdir(path))
 {
   return _mkdir(path);
 }
-
 
 inline auto mktemp(char* path) ->
 decltype(_mktemp(path))
